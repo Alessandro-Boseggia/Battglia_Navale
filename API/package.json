@@ -1,0 +1,21 @@
+{
+    "name": "battaglia_navale",
+    "version": "1.0.0",
+    "description": "Gioco della battaglia navale",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "test": "ù"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "fastify": "^3.23.1",
+        "fastify-autoload": "^3.9.0",
+        "fastify-cookie": "^5.3.2",
+        "fastify-plugin": "^3.0.0",
+        "fastify-sensible": "^3.1.2",
+        "jsonwebtoken": "^8.5.1",
+        "socket.io": "^4.3.2"
+    }
+}
