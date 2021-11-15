@@ -2,15 +2,14 @@ import Fastify from "fastify";
 import autoLoad from "fastify-autoload";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import("dotenv").then((dotenv) => {
+    dotenv.config();
+});
 
 const fastify = Fastify();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-fastify.setValidatorCompiler(({ schema, method, url, httpPart }) => {
-    return (data) => schema.validate(data);
-});
 
 fastify.register(autoLoad, {
     dir: join(__dirname, "plugin"),
@@ -18,12 +17,12 @@ fastify.register(autoLoad, {
 });
 
 fastify.register(autoLoad, {
-    dir: join(__dirname, "routers"),
+    dir: join(__dirname, "src/routers"),
     forceESM: true,
 });
 
-fastify.setErrorHandler((error, request, reply) => {
-    reply.send(error);
+fastify.setValidatorCompiler(({ schema, method, url, httpPart }) => {
+    return (data) => schema.validate(data);
 });
 
 fastify.listen(3000, async (err, address) => {
