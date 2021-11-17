@@ -5,7 +5,8 @@
     "main": "app.js",
     "type": "module",
     "scripts": {
-        "test": "ù"
+        "start": "node server.js",
+        "test": "jest"
     },
     "author": "",
     "license": "ISC",
@@ -22,5 +23,8 @@
         "jsonwebtoken": "^8.5.1",
         "mysql2": "^2.3.3",
         "socket.io": "^4.3.2"
+    },
+    "devDependencies": {
+        "jest": "^27.3.1"
     }
 }
