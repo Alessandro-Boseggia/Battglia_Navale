@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,21 +8,22 @@
         <title>Battaglia navale</title>
     </head>
     <body>
+        <div class="errorContainer hide">
+            <p></p>
+        </div>
         <div class="LoginContainer">
             <input id="username" type="text" placeholder="username" />
-            <input id="password" type="password" placeholder="password" />
+            <input
+                class="password"
+                id="password"
+                type="password"
+                placeholder="password"
+            />
 
-            <div class="mostraNascondiContainer">
-                <input
-                    type="checkbox"
-                    id="mostraNascondi"
-                    value="Mostra password"
-                />
-                <p>Mostra password</p>
-            </div>
-
-            <button class="loginBtn">LOGIN</button>
+            <button id="loginBtn" class="loginBtn">LOGIN</button>
         </div>
-        <script src="../JS/Login.js"></script>
+
+        <script type="module" src="../JS/utils/authAPI.js"></script>
+        <script type="module" src="../JS/auth/login.js"></script>
     </body>
 </html>
