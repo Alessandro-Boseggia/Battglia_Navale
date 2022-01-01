@@ -1,5 +1,5 @@
 beforeAll(async () => {
-    await fastify.mysql.deleteUserByUsername("Ale041");
+    await fastify.mysql.User.deleteUserByUsername("Ale041");
 });
 
 afterAll(() => {
@@ -15,7 +15,6 @@ test("Insert user", async () => {
             password: "bose123",
         },
     });
-
     expect(response.statusCode).toBe(200);
 });
 

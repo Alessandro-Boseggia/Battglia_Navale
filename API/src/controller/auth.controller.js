@@ -2,27 +2,34 @@
  *
  * @param {import("fastify").FastifyRequest} request
  * @param {import("fastify").FastifyReply} reply
- * @returns
  */
+
 async function login(request, reply) {
-    const { username, password } = request.body;
+    try {
+        const User = this.mysql.User;
 
-    const { idUser } = await this.mysql.checkUsernameAndPassword(
-        username,
-        password
-    );
+        const { username, password } = request.body;
 
-    const { jwt, refreshToken } = await this.newJWT({ idUser });
+        const { idUser } = await User.checkUsernameAndPassword(
+            username,
+            password
+        );
 
-    reply.setCookie("refresh", refreshToken, {
-        path: "/",
-        httpOnly: true,
-        maxAge: 90000000,
-        secure: true,
-        sameSite: "none",
-    });
+        const { jwt, refreshToken } = await this.newJWT({ idUser });
 
-    reply.send({ jwt });
+        reply.setCookie("refresh", refreshToken, {
+            path: "/",
+            httpOnly: true,
+            maxAge: 90000000,
+            secure: false,
+            sameSite: "none",
+        });
+
+        reply.send({ jwt });
+    } catch (error) {
+        if (error.statusCode === 401) reply.unauthorized();
+        reply.internalServerError();
+    }
 }
 
 /**
@@ -32,11 +39,18 @@ async function login(request, reply) {
  * @returns
  */
 async function register(request, reply) {
-    const { username, password } = request.body;
+    try {
+        const User = this.mysql.User;
 
-    await this.mysql.insertUser(username, password);
+        const { username, password } = request.body;
 
-    reply.send();
+        await User.insertUser(username, password);
+
+        reply.code(200).send();
+    } catch (error) {
+        if (error.statusCode === 409) reply.conflict();
+        reply.internalServerError();
+    }
 }
 
 /**
@@ -46,8 +60,9 @@ async function register(request, reply) {
  * @returns
  */
 async function refresh(request, reply) {
+    const { refresh } = request.cookies;
     try {
-        const jwt = await this.refreshFromCookie(request);
+        const jwt = await this.refresh(refresh);
         reply.send({ jwt });
     } catch (err) {
         reply.badRequest();
