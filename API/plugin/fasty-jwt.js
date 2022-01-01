@@ -1,5 +1,6 @@
 import fp from "fastify-plugin";
 import JWT from "jsonwebtoken";
+import Joi from "joi";
 
 /**
  *
@@ -8,24 +9,33 @@ import JWT from "jsonwebtoken";
  */
 async function fastyJwt(fastify, opts) {
     const secret = opts.secret ?? "secret";
-    let JWTValue = null;
+    let JWTValue;
 
     /**
      *
      * @param {import("fastify").FastifyRequest} request
      * @param {import("fastify").FastifyReply} replay
      */
-    async function authJWT(request, replay) {
-        const jwt = request.headers.jwt;
-
+    async function authJWTHook(request, reply) {
         try {
+            const jwt = request.headers.jwt;
+
             const validJWT = await JWT.verify(jwt, secret);
 
-            if (validJWT.hasOwnProperty("isRefresh")) throw new Error();
+            if (validJWT.hasOwnProperty("isRefresh")) reply.unauthorized();
             request.JWT = validJWT;
-        } catch (error) {
-            replay.unauthorized();
+        } catch (err) {
+            reply.unauthorized();
         }
+    }
+
+    async function authJWT(jwt) {
+        const validJWT = await JWT.verify(jwt, secret);
+
+        if (validJWT.hasOwnProperty("isRefresh"))
+            throw fastify.httpErrors.unauthorized();
+
+        return validJWT;
     }
 
     /**
@@ -74,9 +84,22 @@ async function fastyJwt(fastify, opts) {
         });
     }
 
+    const jwtHeaderSchema = Joi.custom((value, helpers) => {
+        const regex = RegExp(
+            /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/
+        );
+        if (typeof value.jwt != "string" || !regex.test(value.jwt)) {
+            return helpers.message("Invalid JWT");
+        }
+
+        return value;
+    }, "jwt validator");
+
+    fastify.decorate("authJWTHook", authJWTHook);
     fastify.decorate("authJWT", authJWT);
     fastify.decorate("newJWT", newJWT);
     fastify.decorate("refresh", refresh);
+    fastify.decorate("jwtHeaderSchema", jwtHeaderSchema);
     fastify.decorateRequest("JWT", JWTValue);
 }
 export default fp(fastyJwt, { name: "fasty-jwt" });
