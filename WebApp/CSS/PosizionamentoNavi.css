@@ -1,0 +1,102 @@
+html{
+    width: 100%;
+    height: 100%;
+    background-image: url(https://www.wallpaperup.com/uploads/wallpapers/2015/02/06/614255/7029203392c0cd2ee6ef742d2f023d8f-700.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body{
+    text-align: center;
+}
+
+h1{
+    color: white;
+}
+
+.posizioneNavi{
+    text-align: center;
+}
+
+#colonne, #R1, #R2, #R3, #R4, #R5, #R6, #R7, #R8, #R9, #R10{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: white;
+}
+
+.colonne, .R1, .R2, .R3, .R4, .R5, .R6, .R7, .R8, .R9, .R10{
+    width: 20px;
+    height: 20px;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+.R1, .R2, .R3, .R4, .R5, .R6, .R7, .R8, .R9, .R10{
+    background-color: cyan;
+}
+
+.tabNavi {
+    display: inline-block;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 10%;
+}
+
+/*intestazioni: riga dei numeri e colonna delle lettere*/
+#A, #B, #C, #D, #E, #F, #G, #H, #I, #L{
+    background-color: white;
+}
+
+.portaerei, .corazzata, .sottomarino1, .sottomarino2, .naveAssalto1, .naveAssalto2{
+    vertical-align: text-top;   
+} 
+
+.nave{
+    background-color: grey;
+    width: 20px;
+    height: 20px;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+.nomeNave, .nave, .coordinataInizioLettera, .coordinataInizioNumero, .coordinataFineLettera, .coordinataFineNumero{
+    display: inline-block;
+}
+
+.coordinateNavi{
+    flex-direction: row;
+    margin: 1rem;
+    text-align: right;
+    background-color: azure;
+    padding: 1rem;
+    
+}
+
+.coordinataInizioLettera, .coordinataInizioNumero, .coordinataFineLettera, .coordinataFineNumero{
+    width: 25px;
+    height: 20px;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+.tabGiocatore1, .coordinateNavi, .coordinate{
+    display: inline-block;
+}
+
+#PlayBtn{
+    background-color: blue;
+    color: aliceblue;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right:3rem;
+    padding-left: 3rem;
+    border-radius: 1rem;
+    margin: 1rem;
+}
