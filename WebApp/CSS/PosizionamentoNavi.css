@@ -90,7 +90,7 @@ h1{
     display: inline-block;
 }
 
-#PlayBtn{
+#playBtn{
     background-color: blue;
     color: aliceblue;
     padding-top: 0.5rem;
@@ -99,4 +99,10 @@ h1{
     padding-left: 3rem;
     border-radius: 1rem;
     margin: 1rem;
+}
+
+.posizionaBtn{
+    background-color: blue;
+    color: aliceblue;
+    border-radius: 1rem;
 }
