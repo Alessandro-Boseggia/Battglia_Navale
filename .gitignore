@@ -2,3 +2,4 @@ node_modules
 API/package-lock.json
 API/.env
 API/coverage
+.vscode
