@@ -21,7 +21,7 @@ async function login(request, reply) {
             path: "/",
             httpOnly: true,
             maxAge: 90000000,
-            secure: false,
+            secure: true,
             sameSite: "none",
         });
 
@@ -65,7 +65,7 @@ async function refresh(request, reply) {
         const jwt = await this.refresh(refresh);
         reply.send({ jwt });
     } catch (err) {
-        reply.badRequest();
+        reply.unauthorized();
     }
 }
 

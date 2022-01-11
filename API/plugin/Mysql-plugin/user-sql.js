@@ -51,4 +51,12 @@ export class User {
             [username, password]
         );
     }
+
+    async findById(id) {
+        const [result] = await this.mysql.execute(
+            "SELECT * FROM Utenti WHERE id = ?",
+            [id]
+        );
+        return result[0];
+    }
 }

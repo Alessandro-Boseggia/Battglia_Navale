@@ -7,61 +7,63 @@ html {
 body {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
     background-image: url(../IMG/Sfondo_nave_2.jpeg);
     background-size: 100% 100vh;
     background-repeat: no-repeat;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 50%;
-    height: 50%;
+input {
+    width: calc(60% - 45px);
+    height: 10%;
     padding: 1em;
     border: 1px solid white;
     border-radius: 30px;
 }
 
-input[type="text"] {
-    margin-bottom: 1rem;
+.password {
+    margin-top: 1.5em;
 }
 
 .LoginContainer {
-    width: 80%;
+    width: 60%;
+    height: 30%;
+    margin: 0;
     display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
+    flex-flow: column;
+    justify-content: center;
     align-items: center;
 }
 
 .loginBtn {
-    width: 50%;
-    height: 50%;
+    width: 40%;
+    height: 20%;
     font-weight: bold;
-    padding: 1em;
     background-color: #4576ff;
     border: 1px solid white;
     border-radius: 30px;
+    cursor: pointer;
+    margin-top: 1.5em;
+}
+.errorContainer {
+    background-color: #ffdcdf;
+    color: #942c25;
+    border: 2px solid #cc8580;
+    padding: 0.5rem;
+    font-size: 1rem;
 }
 
-.mostraNascondiContainer {
-    width: 20%;
-    height: 5%;
-    margin-left: 4em;
-    align-self: flex-start;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+.hide {
+    display: none;
 }
 
-#mostraNascondi {
-    align-self: center;
-}
-
-div > p {
-    color: white;
+@media only screen and (max-width: 950px) {
+    .LoginContainer {
+        width: 100%;
+    }
 }
 =======
 body{

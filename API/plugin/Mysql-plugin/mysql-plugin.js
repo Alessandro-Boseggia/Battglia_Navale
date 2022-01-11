@@ -25,7 +25,7 @@ async function mysql_plugin(fastify, opts) {
 
     fastify.decorate("mysql", {
         User: new User(pool),
-        Game: new Game(pool),
+        Game: new Game(pool, fastify),
         closeAllConnection,
     });
 }
