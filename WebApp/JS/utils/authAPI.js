@@ -1,7 +1,7 @@
 export async function login(username, password) {
-    const response = await fetch("http://127.0.0.1:3000/auth/login", {
+    const response = await fetch("/api/auth/login", {
         method: "POST",
-        credentials: "include",
+        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             username,
@@ -9,11 +9,23 @@ export async function login(username, password) {
         }),
     });
 
-    const statusCode = response.statusCode;
+    const statusCode = response.status;
 
     if (statusCode === 400) throw new Error("Inserisci dei dati validi");
     if (statusCode === 401) throw new Error("Credenziali non valide");
     if (statusCode !== 200) throw new Error("Qualcosa è andato storto");
 
-    window.location.replace("/WebApp/HTML/test.html");
+    window.location.replace("/dashboard.html");
+}
+
+export async function refreshToken() {
+    const response = await fetch("/api/auth/refresh", {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+    });
+
+    const jsonRespone = await response.json();
+
+    return jsonRespone.jwt;
 }
