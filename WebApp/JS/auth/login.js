@@ -18,7 +18,6 @@ loginBtn.addEventListener("click", async (event) => {
 
 function showError(message) {
     const messageField = document.querySelector(".errorContainer");
-    console.log(messageField);
     messageField.classList.remove("hide");
     messageField.innerText = message;
 }
