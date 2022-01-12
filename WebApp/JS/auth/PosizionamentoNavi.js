@@ -46,10 +46,13 @@ var naviInserite = Array("nonInserita", "nonInserita", "nonInserita", "nonInseri
 
 function posizionamentoNave(lunghezzaNave, numeroNave){
 
-    let inizioLettera = (document.getElementsByClassName("coordinataInizioLettera")[numeroNave-1].value).toString().toUpperCase();
+    let inizioLettera = (document.getElementsByClassName("coordinataInizioLettera")[numeroNave-1].value).toString();
     let fineLettera = document.getElementsByClassName("coordinataFineLettera")[numeroNave-1].value;
-    let inizioNumero = document.getElementsByClassName("coordinataInizioNumero")[numeroNave-1].value.toString().toUpperCase();
+    let inizioNumero = document.getElementsByClassName("coordinataInizioNumero")[numeroNave-1].value.toString();
     let fineNumero = document.getElementsByClassName("coordinataFineNumero")[numeroNave-1].value;
+
+    inizioLettera = inizioLettera.toUpperCase();
+    fineLettera = fineLettera.toUpperCase();
 
     if(inizioLettera === "" || inizioNumero=== "" || fineLettera === "" || fineNumero === ""){
         alert("Le coordinate non sono state inserite completamente");
