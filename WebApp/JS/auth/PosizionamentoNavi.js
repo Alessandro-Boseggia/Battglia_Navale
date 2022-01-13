@@ -20,8 +20,8 @@ function controlloSorvapposizioneNavi(iLettera, iNumero, fLettera, fNumero){
         
         while(i<fNumero && !sovrapposta){
             let id = iLettera+""+(i+1);
-            let bgColor = daRGBAColore(window.getComputedStyle( document.getElementById("A1") ,null).getPropertyValue('background-color').toString());
-            if(bgColor === "#808080"){
+            let bgColor = daRGBAColore(window.getComputedStyle( document.getElementById(id) ,null).getPropertyValue('background-color').toString());
+            if(bgColor === "#80800c"){
                 sovrapposta=true;
             }
             i++;
@@ -29,12 +29,14 @@ function controlloSorvapposizioneNavi(iLettera, iNumero, fLettera, fNumero){
         
     }else if(iNumero === fNumero){
         let i = iLettera.charCodeAt(0)-1;
+        let n = 0;
         while(i<fLettera.charCodeAt(0) && !sovrapposta){
-            let id = (iLettera++)+""+iNumero;
-            let bgColor = daRGBAColore(window.getComputedStyle( document.getElementById("A1") ,null).getPropertyValue('background-color').toString());
-            if(bgColor === "#808080"){
+            let id = ""+(String.fromCharCode(iLettera.charCodeAt(0)+(n+1)))+""+iNumero;
+            let bgColor = daRGBAColore(window.getComputedStyle( document.getElementById(id) ,null).getPropertyValue('background-color').toString());
+            if(bgColor === "#80800c"){
                 sovrapposta=true;
             }
+            n++;
             i++;
         }
     }
@@ -43,6 +45,7 @@ function controlloSorvapposizioneNavi(iLettera, iNumero, fLettera, fNumero){
 
 //esegue il controllo del posizionamento per ciascuna nave
 var naviInserite = Array("nonInserita", "nonInserita", "nonInserita", "nonInserita", "nonInserita", "nonInserita");
+var caselleNave = Array("", "", "", "", "", "");
 
 function posizionamentoNave(lunghezzaNave, numeroNave){
 
@@ -62,22 +65,30 @@ function posizionamentoNave(lunghezzaNave, numeroNave){
         alert("La nave non può essere posizionata in obliquo");
     }else if(inizioLettera === fineLettera){
         if(!controlloSorvapposizioneNavi(inizioLettera, inizioNumero, fineLettera, fineNumero)){//la nave non è sovrapposta ad un'altra
+            caselleNave[numeroNave-1]+="{";
             for(let i = inizioNumero-1; i<fineNumero;i++){
                 let id = inizioLettera+""+(i+1);
                 document.getElementById(id).style.backgroundColor = "#808080";
+                caselleNave[numeroNave-1]+=("\""+id+"\""+": 0,");
             }
+            caselleNave[numeroNave-1] = caselleNave[numeroNave-1].substring(0, caselleNave[numeroNave-1].length - 1);//toglie la virgola finale della stringa
+            caselleNave[numeroNave-1]+="}";
             naviInserite[numeroNave-1]="inserita";
         }else{
             alert("Non puoi sovrapporre due navi");
         }
     }else if(inizioNumero === fineNumero){
         if(!controlloSorvapposizioneNavi(inizioLettera, inizioNumero, fineLettera, fineNumero)){//la nave non è sovrapposta ad un'altra
+            caselleNave[numeroNave-1]+="{";
             let lettera = inizioLettera;
             for(let i = inizioLettera.charCodeAt(0)-1; i<fineLettera.charCodeAt(0);i++){
                 let id = lettera+""+inizioNumero;
                 lettera = String.fromCharCode(lettera.charCodeAt() + 1);
                 document.getElementById(id).style.backgroundColor = "#808080";
+                caselleNave[numeroNave-1]+=("\""+id+"\""+": 0,");
             }
+            caselleNave[numeroNave-1] = caselleNave[numeroNave-1].substring(0, caselleNave[numeroNave-1].length - 1);//toglie la virgola finale della stringa
+            caselleNave[numeroNave-1]+="}";
             naviInserite[numeroNave-1]="inserita";
         }else{
             alert("Non puoi sovrapporre due navi");
@@ -111,9 +122,6 @@ document.getElementsByClassName("posizionaBtn")[5].addEventListener("click", fun
     posizionamentoNave(2, 6); 
 })
 
-
-
-
 //si può giocare solo se sono state inserite tutte le navi
 document.getElementById("playBtn").addEventListener("click", function(){
     var inserite = true;
@@ -124,10 +132,30 @@ document.getElementById("playBtn").addEventListener("click", function(){
     }
     
     if(inserite===true){
-        window.location = "../HTML/Griglia.html";
+        //window.location = "../HTML/Griglia.html";
     }else{
         alert("Posiziona prima le navi");
     }
+
+    const navi ={
+        "griglia":[
+            JSON.parse(caselleNave[0]),
+            JSON.parse(caselleNave[1]),
+            JSON.parse(caselleNave[2]),
+            JSON.parse(caselleNave[3]),
+            JSON.parse(caselleNave[4]),
+            JSON.parse(caselleNave[5])
+        ]
+    }
+
+    console.log(navi);
+
 })
+
+
+
+
+
+
 
 
