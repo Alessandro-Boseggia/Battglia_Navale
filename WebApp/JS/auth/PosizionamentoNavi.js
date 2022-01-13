@@ -132,7 +132,7 @@ document.getElementById("playBtn").addEventListener("click", function(){
     }
     
     if(inserite===true){
-        //window.location = "../HTML/Griglia.html";
+        window.location = "../HTML/Griglia.html";
     }else{
         alert("Posiziona prima le navi");
     }
